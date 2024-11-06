@@ -36,7 +36,7 @@ import random
 from isaacgym import gymapi
 from isaacgym import gymutil
 
-from legged_gym import LEGGED_GYM_ROOT_DIR, LEGGED_GYM_ENVS_DIR
+from pure_gym import GYM_ROOT_DIR, GYM_ENVS_DIR
 
 def class_to_dict(obj) -> dict:
     if not  hasattr(obj,"__dict__"):
