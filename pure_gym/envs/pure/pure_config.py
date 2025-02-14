@@ -10,10 +10,10 @@ class PureCfg(LeggedRobotCfg):
     ]
 
     class env(LeggedRobotCfg.env):
-        num_envs = 4096
+        num_envs = 128
         num_actions = 6
-        num_observations = 24  # TODO: update this
-        num_privileged_obs = 0
+        num_observations = 22
+        num_privileged_obs = num_observations + 22
 
     class commands(LeggedRobotCfg.commands):
         curriculum = False
@@ -24,6 +24,9 @@ class PureCfg(LeggedRobotCfg):
         name = "pure"
         self_collisions = 0  # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
+
+        penalize_contacts_on = [
+        ]
 
         pos_offsets = {
             # TODO
@@ -55,29 +58,26 @@ class PureCfg(LeggedRobotCfg):
         lin_vel = [0.0, 0.0, 0.0]  # x,y,z [m/s]
         ang_vel = [0.0, 0.0, 0.0]  # x,y,z [rad/s]
         default_joint_angles = {  # target angles when action = 0.0
-            # TODO
         }
 
     class control(LeggedRobotCfg.control):
         decimation = 4
-        power_on_time = 2.0  # time to power on the robot
+        power_on_time = 0.0  # time to power on the robot
 
         action_scale_vel = 10.0
-        action_scale_pos = 0.25
+        action_scale_pos = 2.0
 
         p_gains = {
-            # TODO
         }
 
         d_gains = {
-            # TODO
         }
 
     class terrain(LeggedRobotCfg.terrain):
         mesh_type = "plane"
         curriculum = True
-        static_friction = 0.5
-        dynamic_friction = 0.5
+        static_friction = 0.8
+        dynamic_friction = 0.8
 
     class rewards(LeggedRobotCfg.rewards):
         # don't inherit from base
@@ -104,9 +104,9 @@ class PureCfgPPO(LeggedRobotCfgPPO):
     runner_class_name = 'OnPolicyRunner'
 
     class policy(LeggedRobotCfgPPO.policy):
-        init_noise_std = 1.0
-        actor_hidden_dims = [512, 256, 128]
-        critic_hidden_dims = [512, 256, 128]
+        init_noise_std = 0.5
+        actor_hidden_dims = [128, 64, 32]
+        critic_hidden_dims = [256, 128, 64]
         activation = 'elu'  # can be elu, relu, selu, crelu, lrelu, tanh, sigmoid
 
     class algorithm(LeggedRobotCfgPPO.algorithm):
@@ -129,8 +129,10 @@ class PureCfgPPO(LeggedRobotCfgPPO):
         algorithm_class_name = 'PPO'
         num_steps_per_env = 24  # per iteration
         max_iterations = 1500  # number of policy updates
+        empirical_normalization = True
 
         # logging
+        logger = 'tensorboard'
         save_interval = 50  # check for potential saves every this many iterations
         experiment_name = 'test'
         run_name = ''

@@ -1,6 +1,5 @@
 from pure_gym import GYM_ROOT_DIR, envs
 from time import time
-from warnings import WarningMessage
 import numpy as np
 import os
 
@@ -100,7 +99,6 @@ class Pure(LeggedRobot):
             self.rew_buf,
             self.reset_buf,
             self.extras
-            # self.obs_history
         )
 
     def _post_physics_step_callback(self):
@@ -267,6 +265,7 @@ class Pure(LeggedRobot):
         self.dof_state = gymtorch.wrap_tensor(dof_state_tensor)
         self.dof_pos = self.dof_state.view(self.num_envs, self.num_dof, 2)[..., 0]
         self.dof_vel = self.dof_state.view(self.num_envs, self.num_dof, 2)[..., 1]
+        self.base_pos = self.root_states[:, :3]
         self.base_quat = self.root_states[:, 3:7]
         self.contact_forces = (gymtorch.wrap_tensor(net_contact_forces)
                                .view(self.num_envs, -1, 3))  # shape: num_envs, num_bodies, xyz axis
@@ -329,7 +328,7 @@ class Pure(LeggedRobot):
             requires_grad=False,
         )
         if self.cfg.domain_rand.randomize_action_delay:
-            self.ction_delay_idx = torch.round(
+            self.action_delay_idx = torch.round(
                 torch_rand_float(
                     self.cfg.domain_rand.delay_ms_range[0] / 1000 / self.sim_params.dt,
                     self.cfg.domain_rand.delay_ms_range[1] / 1000 / self.sim_params.dt,
@@ -352,3 +351,11 @@ class Pure(LeggedRobot):
             latest = self.cfg.domain_rand.lift_start_at[1]
             self.lift_start = (torch.rand([self.num_envs, ], dtype=torch.float, device=self.device)
                                * (latest - earliest) + earliest)
+
+    def _reward_orientation(self):
+        # penalize projected_gravity on y-z plane
+        return torch.sum(torch.square(self.projected_gravity[:, 1:]))
+
+    def _reward_base_height(self):
+        # reward for keeping height
+        return self.base_pos[:, 2]
