@@ -6,7 +6,10 @@ from pure_gym.envs.base.legged_robot_config import (
 
 class PureCfg(LeggedRobotCfg):
     action_keys = [
-        # TODO
+        "fl_joint",
+        "fr_joint",
+        "bl_joint",
+        "br_joint",
     ]
 
     class env(LeggedRobotCfg.env):
@@ -29,7 +32,12 @@ class PureCfg(LeggedRobotCfg):
         ]
 
         pos_offsets = {
-            # TODO
+            "fl_joint": 0.0,
+            "fr_joint": 0.0,
+            "bl_joint": 0.0,
+            "br_joint": 0.0,
+            "load_x_joint": 0.0,
+            "load_y_joint": 0.0,
         }
 
     class domain_rand(LeggedRobotCfg.domain_rand):
@@ -68,9 +76,21 @@ class PureCfg(LeggedRobotCfg):
         action_scale_pos = 2.0
 
         p_gains = {
+            "fl_joint": 0.0,
+            "fr_joint": 0.0,
+            "bl_joint": 0.0,
+            "br_joint": 0.0,
+            "load_x_joint": 0.0,
+            "load_y_joint": 0.0,
         }
 
         d_gains = {
+            "fl_joint": 0.0,
+            "fr_joint": 0.0,
+            "bl_joint": 0.0,
+            "br_joint": 0.0,
+            "load_x_joint": 0.0,
+            "load_y_joint": 0.0,
         }
 
     class terrain(LeggedRobotCfg.terrain):
