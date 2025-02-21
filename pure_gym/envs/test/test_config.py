@@ -5,7 +5,6 @@ from pure_gym.envs.base.legged_robot_config import (
 
 
 class TestCfg(LeggedRobotCfg):
-
     class env(LeggedRobotCfg.env):
         num_envs = 128
         num_actions = 0

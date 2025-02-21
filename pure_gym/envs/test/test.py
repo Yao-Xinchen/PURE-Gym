@@ -20,6 +20,7 @@ from pure_gym.utils.math import (
 from pure_gym.utils.helpers import class_to_dict
 from .test_config import TestCfg, TestCfgPPO
 
+
 class Test(LeggedRobot):
     def __init__(self, cfg: TestCfg, sim_params, physics_engine, sim_device, headless):
         self.cfg = cfg
