@@ -25,7 +25,7 @@ class PureCfg(LeggedRobotCfg):
     class asset(LeggedRobotCfg.asset):
         file = "{GYM_ROOT_DIR}/resources/robots/pure/urdf/pure.urdf"
         name = "pure"
-        self_collisions = 0  # 1 to disable, 0 to enable...bitwise filter
+        self_collisions = 1  # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
 
         penalize_contacts_on = [
