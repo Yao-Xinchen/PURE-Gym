@@ -10,14 +10,15 @@ class TestCfg(LeggedRobotCfg):
         num_actions = 0
         num_observations = 0
         num_privileged_obs = 0
+        episode_length_s = 4
 
     class commands(LeggedRobotCfg.commands):
         curriculum = False
         num_commands = 0
 
     class asset(LeggedRobotCfg.asset):
-        file = "{GYM_ROOT_DIR}/resources/robots/pure/urdf/pure.urdf"
-        name = "pure"
+        file = "{GYM_ROOT_DIR}/resources/robots/omniwheel/urdf/omniwheel.urdf"
+        name = "test"
         self_collisions = 0  # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
 
@@ -25,7 +26,6 @@ class TestCfg(LeggedRobotCfg):
         ]
 
         pos_offsets = {
-            "": 0.0,
         }
 
     class domain_rand(LeggedRobotCfg.domain_rand):
@@ -54,6 +54,10 @@ class TestCfg(LeggedRobotCfg):
         lin_vel = [0.0, 0.0, 0.0]  # x,y,z [m/s]
         ang_vel = [0.0, 0.0, 0.0]  # x,y,z [rad/s]
         default_joint_angles = {  # target angles when action = 0.0
+            "roller_joint_0": 0.0,
+            "roller_joint_1": 0.0,
+            "roller_joint_2": 0.0,
+            "roller_joint_3": 0.0,
         }
 
     class control(LeggedRobotCfg.control):
@@ -73,7 +77,7 @@ class TestCfg(LeggedRobotCfg):
         # don't inherit from base
         # to avoid using its reward functions
         class scales():
-            torques = -1e-4
+            pass
             # TODO: define more scales
 
         only_positive_rewards = False

@@ -89,7 +89,7 @@ class Test(LeggedRobot):
         pass
 
     def _compute_torques(self, actions):
-        torques = torch.zeros_like(self.dof_names)
+        torques = torch.zeros([self.num_envs, self.num_dof], dtype=torch.float, device=self.device, )
         return torques
 
     def post_physics_step(self):
