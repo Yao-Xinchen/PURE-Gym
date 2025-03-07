@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="pure"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+<xacro:include
+  filename="$(find pure)/urdf/omniwheel.urdf.xacro" />
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0 0.249140394438139 8.43545918737274E-19"
+        rpy="0 0 0" />
+      <mass
+        value="1.1584281172172" />
+      <inertia
+        ixx="0.00684464813757771"
+        ixy="0"
+        ixz="1.64016473110534E-35"
+        iyy="0.00691263481880664"
+        iyz="4.17419320632715E-20"
+        izz="0.00684464813757771" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pure/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.843137254901961 0.815686274509804 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://pure/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <xacro:omniwheel
+    omniwheelID="omni_link_0"/>
+
+  <joint
+    name="omni_joint_0"
+    type="continuous">
+    <origin
+      xyz="0.0884 0.0884 0.12502"
+      rpy="3.5304 -0.66263 -0.17085" />
+    <parent
+      link="base_link" />
+    <child
+      link="omni_link_0" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <xacro:omniwheel
+    omniwheelID="omni_link_1"/>
+
+  <joint
+    name="omni_joint_1"
+    type="continuous">
+    <origin
+      xyz="-0.0884 0.0884 0.12502"
+      rpy="3.5304 0.66263 0.17085" />
+    <parent
+      link="base_link" />
+    <child
+      link="omni_link_1" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <xacro:omniwheel
+    omniwheelID="omni_link_2"/>
+
+  <joint
+    name="omni_joint_2"
+    type="continuous">
+    <origin
+      xyz="-0.0884 -0.0884 0.12502"
+      rpy="2.5544 0.66263 -0.17085" />
+    <parent
+      link="base_link" />
+    <child
+      link="omni_link_2" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+
+  <xacro:omniwheel
+    omniwheelID="omni_link_3"/>
+
+  <joint
+    name="omni_joint_3"
+    type="continuous">
+    <origin
+      xyz="0.0884 -0.0884 0.12502"
+      rpy="2.5544 -0.66263 0.17085" />
+    <parent
+      link="base_link" />
+    <child
+      link="omni_link_3" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+</robot>
