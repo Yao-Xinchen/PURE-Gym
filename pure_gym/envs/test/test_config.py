@@ -17,7 +17,7 @@ class TestCfg(LeggedRobotCfg):
         num_commands = 0
 
     class asset(LeggedRobotCfg.asset):
-        file = "{GYM_ROOT_DIR}/resources/robots/omniwheel/urdf/omniwheel.urdf"
+        file = "{GYM_ROOT_DIR}/resources/robots/pure/urdf/pure.urdf"
         name = "test"
         self_collisions = 1  # 1 to disable, 0 to enable...bitwise filter
         flip_visual_attachments = False
@@ -54,10 +54,6 @@ class TestCfg(LeggedRobotCfg):
         lin_vel = [0.0, 0.0, 0.0]  # x,y,z [m/s]
         ang_vel = [0.0, 0.0, 0.0]  # x,y,z [rad/s]
         default_joint_angles = {  # target angles when action = 0.0
-            "roller_joint_0": 0.0,
-            "roller_joint_1": 0.0,
-            "roller_joint_2": 0.0,
-            "roller_joint_3": 0.0,
         }
 
     class control(LeggedRobotCfg.control):
